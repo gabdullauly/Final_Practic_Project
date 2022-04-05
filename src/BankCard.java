@@ -1,10 +1,10 @@
 /*
 BankCard class
-⁃	String data (04/25)
-⁃	String name
-⁃	String cv (123)
-⁃	Double balance
-⁃	BankType banktype
+⁃ String data (04/25)
+⁃ String name
+⁃ String cv (123)
+⁃ Double balance
+⁃ BankType banktype
 Переопределить toString
  */
 

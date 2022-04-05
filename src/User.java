@@ -1,15 +1,15 @@
 /*
 User class
-⁃	integer Id
-⁃	String username
-⁃	String password
-⁃	String name
-⁃	Integer age
-⁃	BankCard bankCard
+⁃ integer Id
+⁃ String login
+⁃ String password
+⁃ String username
+⁃ Integer age
+⁃ BankCard bankCard
 Переопределить toString
  */
 
-public class User extends BankCard{
+public class User {
     private Integer id;
     private String login;
     private String password;
@@ -17,9 +17,7 @@ public class User extends BankCard{
     private Integer age;
     private BankCard bankCard;
     public User(){}
-    public User(String data, String nameBank, String cvc, Double balance, BankType bankType, Integer id, String login,
-                String password, String username, Integer age, BankCard bankCard){
-        super(data, nameBank, cvc, balance, bankType);
+    public User(Integer id, String login, String password, String username, Integer age, BankCard bankCard){
         this.id = id;
         this.login = login;
         this.password = password;
@@ -65,6 +63,6 @@ public class User extends BankCard{
     }
     @Override
     public String toString (){
-        return getData()+" "+getNameBank()+" "+getCvc()+" "+getBalance()+" "+getBankType()+" "+id+" "+login+" "+password+" "+username+" "+age+" "+bankCard;
+        return id+" "+login+" "+password+" "+username+" "+age+" "+bankCard;
     }
 }

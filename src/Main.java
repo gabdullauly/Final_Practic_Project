@@ -50,7 +50,7 @@ public class Main {
         System.out.print("Введите CVC карточки: ");
         String cvc = scan.next();
         System.out.print("Введите баланс карточки: ");
-        double balance = scan.nextDouble();
+        Double balance = scan.nextDouble();
         System.out.println("Банк: ");
         System.out.println("1 - Kaspi");
         System.out.println("2 - Halyk");
