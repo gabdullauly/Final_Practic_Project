@@ -87,6 +87,14 @@ public class Main {
         users.add(user);
         System.out.println("Пользователь успешно создан!");
     }
+    public static User getUserById(Integer id){
+        for (int i=0; i< users.size(); i++){
+            if (id.equals(users.get(i).getId())){
+                return users.get(i);
+            }
+        }
+        return null;
+    }
     public static void transferMoney(String login, String password){
         System.out.println("Меню денежных переводов: ");
         showUserList();
@@ -94,35 +102,32 @@ public class Main {
         Integer id = scan.nextInt();
         System.out.print("Введите сумму перевода: ");
         Double balance = scan.nextDouble();
-        for (int i=0; i< users.size(); i++){
-            if (id!=null && id==users.get(i).getId()){
-                System.out.println("Вы собираетесь перевести средства пользователю "+users.get(i).getUsername()+" в размере "+balance);
-                System.out.println("1 - Подтвердить");
-                System.out.println("2 - Отмена");
-                System.out.print("Подтверждение: ");
-                Integer choice = scan.nextInt();
-                if (choice==1){
-                    if (balance<getUserByLoginAndPass(login, password).getBankCard().getBalance()){
-                        Double balance1 = getUserByLoginAndPass(login, password).getBankCard().getBalance()-balance;
-                        getUserByLoginAndPass(login, password).getBankCard().setBalance(balance1);
-                        Double balance2 = users.get(i).getBankCard().getBalance()+balance;
-                        users.get(i).getBankCard().setBalance(balance2);
-                        System.out.println("Перевод успешно завершен!");
-                    }else {
-                        System.out.println("Не достаточно средств на балансе, Ваш баланс:"+getUserByLoginAndPass(login, password).getBankCard().getBalance());
-                    }
-                }
-                else if (choice==2){
-                    System.out.println("Отмена перевода!");
-                    break;
+        User user = getUserById(id);
+        if (user!=null){
+            System.out.println("Вы собираетесь перевести средства пользователю "+user.getUsername()+" в размере "+balance);
+            System.out.println("1 - Подтвердить");
+            System.out.println("2 - Отмена");
+            System.out.print("Подтверждение: ");
+            Integer choice = scan.nextInt();
+            if (choice==1){
+                if (balance<getUserByLoginAndPass(login, password).getBankCard().getBalance()){
+                    Double balance1 = getUserByLoginAndPass(login, password).getBankCard().getBalance()-balance;
+                    getUserByLoginAndPass(login, password).getBankCard().setBalance(balance1);
+                    Double balance2 = user.getBankCard().getBalance()+balance;
+                    user.getBankCard().setBalance(balance2);
+                    System.out.println("Перевод успешно завершен!");
                 }else {
-                    System.out.println("Введите корректную цифру!");
+                    System.out.println("Не достаточно средств на балансе, Ваш баланс:"+getUserByLoginAndPass(login, password).getBankCard().getBalance());
                 }
             }
-            else {
-                System.out.println("Пользователь с id:"+id+" не найден!");
+            else if (choice==2){
+                System.out.println("Отмена перевода!");
+            }else {
+                System.out.println("Введите корректную цифру!");
             }
-
+        }
+        else {
+            System.out.println("Пользователь с id:"+id+" не найден!");
         }
     }
     public static void editUser(String login, String password){
@@ -161,19 +166,21 @@ public class Main {
                 if (!login.trim().isEmpty() && !password.trim().isEmpty()){
                     User user = getUserByLoginAndPass(login, password);
                     if (user!=null){
-                        System.out.println("Меню пользователя "+getUserByLoginAndPass(login, password).getUsername());
-                        System.out.println("1 - Денежные переводы");
-                        System.out.println("2 - Редактирование данных пользователя");
-                        System.out.println("3 - Выход с личного кабинета");
-                        System.out.print("Выберите действие: ");
-                        int choice1 = scan.nextInt();
-                        if (choice1==3){
-                            System.out.println("Выход!");
-                            break;
-                        }else if (choice1==1){
-                            transferMoney(login, password);
-                        }else if (choice1==2){
-                            editUser(login, password);
+                        while (true){
+                            System.out.println("Меню пользователя "+getUserByLoginAndPass(login, password).getUsername());
+                            System.out.println("1 - Денежные переводы");
+                            System.out.println("2 - Редактирование данных пользователя");
+                            System.out.println("3 - Выход с личного кабинета");
+                            System.out.print("Выберите действие: ");
+                            int choice1 = scan.nextInt();
+                            if (choice1==3){
+                                System.out.println("Выход!");
+                                break;
+                            }else if (choice1==1){
+                                transferMoney(login, password);
+                            }else if (choice1==2){
+                                editUser(login, password);
+                            }
                         }
                     }else {
                         System.out.println("Ошибка! Неверный логин или пароль.");
