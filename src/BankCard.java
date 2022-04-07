@@ -10,14 +10,14 @@ BankCard class
 
 public class BankCard {
     private String data;
-    private String nameBank;
+    private String fullName;
     private String cvc;
     private Double balance;
     private BankType bankType;
     public BankCard(){}
-    public BankCard(String data, String nameBank, String cvc, Double balance, BankType bankType){
+    public BankCard(String data, String fullName, String cvc, Double balance, BankType bankType){
         this.data = data;
-        this.nameBank = nameBank;
+        this.fullName = fullName;
         this.cvc = cvc;
         this.balance = balance;
         this.bankType = bankType;
@@ -25,8 +25,8 @@ public class BankCard {
     public String getData(){
         return data;
     }
-    public String getNameBank(){
-        return nameBank;
+    public String getFullName(){
+        return fullName;
     }
     public String getCvc(){
         return cvc;
@@ -40,8 +40,8 @@ public class BankCard {
     public void setData(String data){
         this.data = data;
     }
-    public void setName(String nameBank){
-        this.nameBank = nameBank;
+    public void setFullName(String fullName){
+        this.fullName = fullName;
     }
     public void setCvc(String cvc){
         this.cvc = cvc;
@@ -54,6 +54,6 @@ public class BankCard {
     }
     @Override
     public String toString (){
-        return data+" "+nameBank+" "+cvc+" "+balance+" "+bankType;
+        return data+" "+fullName+" "+cvc+" "+balance+" "+bankType;
     }
 }
