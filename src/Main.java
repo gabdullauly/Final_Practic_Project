@@ -70,6 +70,7 @@ public class Main {
             bankType = BankType.Alpha;
         }else {
             System.out.println("Введите корректное значение Банка!");
+            return;
         }
         BankCard bankCard = new BankCard();
         bankCard.setData(data);
@@ -108,7 +109,7 @@ public class Main {
             System.out.println("1 - Подтвердить");
             System.out.println("2 - Отмена");
             System.out.print("Подтверждение: ");
-            Integer choice = scan.nextInt();
+            int choice = scan.nextInt();
             if (choice==1){
                 if (balance<getUserByLoginAndPass(login, password).getBankCard().getBalance()){
                     Double balance1 = getUserByLoginAndPass(login, password).getBankCard().getBalance()-balance;
@@ -130,7 +131,7 @@ public class Main {
             System.out.println("Пользователь с id:"+id+" не найден!");
         }
     }
-    public static void editUser(String login, String password){
+    public static void editUser(User user){
         System.out.println("Меню редактирования данных:");
         System.out.print("Введите новый пароль: ");
         String password1 = scan.next();
@@ -139,10 +140,10 @@ public class Main {
         System.out.print("Введите Возраст: ");
         Integer age = scan.nextInt();
         if (!password1.trim().isEmpty() && !username.trim().isEmpty() && age!=null){
-            User user = getUserByLoginAndPass(login, password);
-            user.setPassword(password1);
-            user.setUsername(username);
-            user.setAge(age);
+            User user1 = user;
+            user1.setPassword(password1);
+            user1.setUsername(username);
+            user1.setAge(age);
             System.out.println("Данные успешно изменены!");
         }
     }
@@ -155,10 +156,10 @@ public class Main {
             System.out.println("4 - Выход");
             System.out.print("Выберите действие: ");
             Integer choice = scan.nextInt();
-            if (choice==4){
+            if (choice.equals(4)){
                 System.out.println("Завершение программы!");
                 break;
-            }else if (choice==1){
+            }else if (choice.equals(1)){
                 System.out.print("Введите логин: ");
                 String login = scan.next();
                 System.out.print("Введите пароль: ");
@@ -167,7 +168,7 @@ public class Main {
                     User user = getUserByLoginAndPass(login, password);
                     if (user!=null){
                         while (true){
-                            System.out.println("Меню пользователя "+getUserByLoginAndPass(login, password).getUsername());
+                            System.out.println("Меню пользователя "+user.getUsername());
                             System.out.println("1 - Денежные переводы");
                             System.out.println("2 - Редактирование данных пользователя");
                             System.out.println("3 - Выход с личного кабинета");
@@ -179,16 +180,16 @@ public class Main {
                             }else if (choice1==1){
                                 transferMoney(login, password);
                             }else if (choice1==2){
-                                editUser(login, password);
+                                editUser(user);
                             }
                         }
                     }else {
                         System.out.println("Ошибка! Неверный логин или пароль.");
                     }
                 }
-            }else if (choice==2){
+            }else if (choice.equals(2)){
                 createUser();
-            }else if (choice==3){
+            }else if (choice.equals(3)){
                 showUserList();
             }else{
                 System.out.println("Ошибка! Введите корректную цифру из меню.");
